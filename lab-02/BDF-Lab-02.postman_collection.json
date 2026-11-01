@@ -1,0 +1,248 @@
+{
+  "info": {
+    "_postman_id": "bdf-lab-02-crud-collection-manishwar",
+    "name": "BDF Lab 02 - SQLite & Express CRUD API",
+    "description": "Postman Collection for testing all 5 CRUD operations in BDF Lab 02 (SQLite & Express Server).\nAuthor: A. Manishwar Reddy (Reg: 252U1R5011, Section: CSE 1A (AI & DE))",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "newBookId",
+      "value": "11",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. GET All Books",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is an array of books\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "    pm.expect(jsonData.length).to.be.at.least(1);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/books/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "books",
+            ""
+          ]
+        },
+        "description": "Retrieves the list of all book records from the SQLite database."
+      },
+      "response": []
+    },
+    {
+      "name": "2. GET Single Book by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response contains valid book details\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('object');",
+              "    pm.expect(jsonData.id).to.eql(1);",
+              "    pm.expect(jsonData).to.have.property('title');",
+              "    pm.expect(jsonData).to.have.property('author');",
+              "    pm.expect(jsonData).to.have.property('price');",
+              "    pm.expect(jsonData).to.have.property('pages');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/books/1/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "books",
+            "1",
+            ""
+          ]
+        },
+        "description": "Retrieves a single book object using the route parameter :bookId."
+      },
+      "response": []
+    },
+    {
+      "name": "3. POST Add New Book",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201 Created\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response confirms book addition and returns bookId\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.message).to.eql(\"Book Added Successfully\");",
+              "    pm.expect(jsonData).to.have.property('bookId');",
+              "    // Save dynamic bookId to collection variable for sequential PUT and DELETE",
+              "    pm.collectionVariables.set(\"newBookId\", String(jsonData.bookId));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Mythical Man-Month\",\n  \"author\": \"Fred Brooks\",\n  \"price\": 420.0,\n  \"pages\": 322\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/books/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "books",
+            ""
+          ]
+        },
+        "description": "Inserts a new book into the SQLite database and extracts the generated lastID."
+      },
+      "response": []
+    },
+    {
+      "name": "4. PUT Update Book Details",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response confirms book update\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.message).to.eql(\"Book Details Updated Successfully\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Mythical Man-Month (Anniversary Edition)\",\n  \"price\": 499.0,\n  \"pages\": 340\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/books/{{newBookId}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "books",
+            "{{newBookId}}",
+            ""
+          ]
+        },
+        "description": "Updates an existing book record matching :bookId using parameterized SQL."
+      },
+      "response": []
+    },
+    {
+      "name": "5. DELETE Book by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response confirms book deletion\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.message).to.eql(\"Book Deleted Successfully\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/books/{{newBookId}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "books",
+            "{{newBookId}}",
+            ""
+          ]
+        },
+        "description": "Deletes a book matching :bookId from the SQLite database."
+      },
+      "response": []
+    }
+  ]
+}
+

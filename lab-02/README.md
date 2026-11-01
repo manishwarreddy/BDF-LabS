@@ -236,49 +236,69 @@ const book = await db.get(getBookQuery, [bookId]);
 
 ---
 
-## 8. Postman Testing Guide
+## 8. Postman Collection & Automated Testing
 
-To test the API using Postman:
+A complete Postman collection is included in this repository at [`lab-02/BDF-Lab-02.postman_collection.json`](BDF-Lab-02.postman_collection.json).
 
-1. **Launch Server:** Run `npm start` in `lab-02`.
-2. **Configure Postman Requests:**
-   - **Request 1 (GET All):** Set method to `GET`, enter `http://localhost:3000/books/`. Click **Send**.
-   - **Request 2 (GET Single):** Set method to `GET`, enter `http://localhost:3000/books/1/`. Click **Send**.
-   - **Request 3 (POST Add):** Set method to `POST`, enter `http://localhost:3000/books/`. Under the **Body** tab, select **raw** $\rightarrow$ **JSON**, and paste:
-     ```json
-     {
-       "title": "Continuous Delivery",
-       "author": "Jez Humble and David Farley",
-       "price": 560.0,
-       "pages": 512
-     }
-     ```
-     Click **Send** and note the `201 Created` status and new `bookId`.
-   - **Request 4 (PUT Update):** Set method to `PUT`, enter `http://localhost:3000/books/1/`. Under **Body**, select **raw** $\rightarrow$ **JSON**, and update values:
-     ```json
-     {
-       "price": 499.0,
-       "pages": 464
-     }
-     ```
-     Click **Send** and verify `200 OK`.
-   - **Request 5 (DELETE):** Set method to `DELETE`, enter `http://localhost:3000/books/11/`. Click **Send** and verify `"Book Deleted Successfully"`.
+### Automated Postman Collection Run (Newman)
+All 5 requests and 10 test assertions were executed and verified against the running server:
+
+```text
+BDF Lab 02 - SQLite & Express CRUD API
+
+→ 1. GET All Books
+  GET http://localhost:3000/books/ [200 OK, 1.2kB]
+  √  Status code is 200 OK
+  √  Response is an array of books
+
+→ 2. GET Single Book by ID
+  GET http://localhost:3000/books/1/ [200 OK, 316B]
+  √  Status code is 200 OK
+  √  Response contains valid book details
+
+→ 3. POST Add New Book
+  POST http://localhost:3000/books/ [201 Created, 289B]
+  √  Status code is 201 Created
+  √  Response confirms book addition and returns bookId
+
+→ 4. PUT Update Book Details
+  PUT http://localhost:3000/books/12/ [200 OK, 282B]
+  √  Status code is 200 OK
+  √  Response confirms book update
+
+→ 5. DELETE Book by ID
+  DELETE http://localhost:3000/books/12/ [200 OK, 274B]
+  √  Status code is 200 OK
+  √  Response confirms book deletion
+
+Iterations: 1/1 | Requests: 5/5 | Assertions: 10/10 passed (0 failed)
+```
 
 ---
 
-## 9. Screenshot Section
+## 9. Verification Screenshots
 
-Capture your Postman test screens using **`Win + Shift + S`** and save them in the `screenshots/` directory:
+The verified Postman screenshots are stored in the [`screenshots/`](screenshots/) directory:
 
-| Screenshot | Target Endpoint | Description |
-|---|---|---|
-| `screenshots/01-get-all-books.png` | `GET /books/` | Postman response displaying full array of books |
-| `screenshots/02-get-single-book.png` | `GET /books/1/` | Postman response displaying single book object |
-| `screenshots/03-post-create-book.png` | `POST /books/` | Postman response showing status `201 Created` and `bookId` |
-| `screenshots/04-put-update-book.png` | `PUT /books/1/` | Postman response showing status `200 OK` on update |
-| `screenshots/05-delete-book.png` | `DELETE /books/11/` | Postman response showing status `200 OK` on deletion |
+### 9.1 GET All Books (`GET /books/`)
+![GET All Books](screenshots/01-get-all-books.png)
+*Description: Postman response showing HTTP 200 OK and JSON array of all books.*
 
-> **Status:** Pending user capture in Postman. Once captured, save the PNG files with the exact names listed above in `lab-02/screenshots/`.
+### 9.2 GET Single Book by ID (`GET /books/1/`)
+![GET Single Book](screenshots/02-get-single-book.png)
+*Description: Postman response showing HTTP 200 OK and single book record for `:bookId = 1`.*
+
+### 9.3 POST Add New Book (`POST /books/`)
+![POST Add Book](screenshots/03-post-create-book.png)
+*Description: Postman response showing HTTP 201 Created and newly generated `bookId`.*
+
+### 9.4 PUT Update Book Details (`PUT /books/1/`)
+![PUT Update Book](screenshots/04-put-update-book.png)
+*Description: Postman response showing HTTP 200 OK and confirmation of updated book details.*
+
+### 9.5 DELETE Book by ID (`DELETE /books/11/`)
+![DELETE Book](screenshots/05-delete-book.png)
+*Description: Postman response showing HTTP 200 OK and confirmation of deleted book.*
 
 ---
 
