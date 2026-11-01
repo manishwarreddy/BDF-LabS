@@ -1,10 +1,10 @@
-# BDF Lab 01: Node.js and Express Server
+# Node.js and Express Server
 
 ## Student Information
 
 - **Student Name:** A. Manishwar Reddy
-- **Registration / Roll Number:** 252U1R5011
-- **Section:** CSE 1A "(AI & DE)"
+- **Roll No:** 252U1R5011
+- **Section:** CSE 1A (AI & DE)
 - **Course:** Backend Development Frameworks (BDF)
 - **Lab Number:** 01
 
@@ -12,7 +12,7 @@
 
 ## 1. Project Description
 
-This project demonstrates the core fundamentals of building backend servers in Node.js. It is divided into two progressive components:
+This project demonstrates the core fundamentals of building backend web servers in Node.js. It is divided into two progressive components:
 
 1. **Low-level HTTP Server:** Implemented using Node.js's built-in `http` module to understand the fundamental request-response cycle and event loop handling in Node.js without third-party frameworks.
 2. **Express.js Web Server:** Implemented using the popular, minimalist Express.js framework to demonstrate high-level routing, HTTP status code management, JSON serialization, dynamic date generation, and centralized 404 error handling for unhandled routes.
@@ -31,7 +31,7 @@ The `package.json` file serves as the manifest for any Node.js project. It maint
 | `"main"` | The primary entry point file of the application that gets executed when the package is required or started (set to `"server.js"`). |
 | `"scripts"` | Key-value dictionary defining shortcut CLI commands that can be executed via `npm run <script-name>`. For instance, `"start": "node server.js"` and `"start:http": "node http-server.js"`. |
 | `"keywords"` | An array of strings/tags that describe the project and aid in cataloging or searching. |
-| `"author"` | Identifies the author/creator of the project. |
+| `"author"` | Identifies the author/creator of the project (`"A. Manishwar Reddy"`). |
 | `"license"` | Identifies the legal licensing terms under which the code is released (e.g., `"ISC"`). |
 | `"dependencies"` | Lists third-party npm packages required by the application in production (e.g., `"express": "^5.3.0"`). The `^` (caret) allows npm to install compatible minor and patch updates. |
 
@@ -60,7 +60,7 @@ lab-01/
 - [Node.js](https://nodejs.org/) (v18.x or later installed)
 - [npm](https://www.npmjs.com/) (bundled automatically with Node.js)
 
-### Steps
+### Steps to Install and Run
 
 1. Open your terminal and navigate to the project directory:
 
@@ -74,6 +74,12 @@ lab-01/
    npm install
    ```
 
+3. Start the Express server:
+
+   ```bash
+   npm start
+   ```
+
 ---
 
 ## 5. Commands to Run Both Servers
@@ -81,6 +87,7 @@ lab-01/
 > **Note on Ports:** Both `http-server.js` and `server.js` are configured to run on port `3000` by default. To test them individually, stop the active server using `Ctrl + C` in your terminal before launching the other.
 
 ### 5.1 Running the HTTP Server
+The basic HTTP server uses Node.js's built-in `http` module and requires no external dependencies.
 
 Using node:
 
@@ -106,6 +113,7 @@ npm run start:http
 ---
 
 ### 5.2 Running the Express Server
+The Express server provides structured routing, HTTP status codes, JSON responses, and centralized error handling.
 
 Using node:
 
@@ -136,7 +144,7 @@ npm start
 | Method | Endpoint | Status Code | Description | Sample Response |
 | --- | --- | --- | --- | --- |
 | `GET` | `/` | `200 OK` | Welcome message text | `Welcome to BDF Lab 01: Node.js and Express Server!` |
-| `GET` | `/about` | `200 OK` | JSON object containing student name and section | `{"name":"A. Manishwar Reddy","section":"CSE-1"}` |
+| `GET` | `/about` | `200 OK` | JSON object containing student name and section | `{"name":"A. Manishwar Reddy","section":"CSE 1A (AI & DE)"}` |
 | `GET` | `/time` | `200 OK` | Current date and time generated using `new Date()` | `Current Date and Time: Sun Nov 01 2026 18:56:12 GMT+0530 (India Standard Time)` |
 | `GET` | `/*` (Unknown path) | `404 Not Found` | Catch-all error message for undefined routes | `404 Not Found: The requested route does not exist.` |
 
@@ -173,38 +181,47 @@ Invoke-WebRequest -Uri "http://localhost:3000/invalid" -SkipHttpErrorCheck | Sel
 
 ---
 
-## 8. Screenshot Section
+## 8. Environment Variables
 
-Place your captured verification images inside the `screenshots/` directory and verify they display below:
+This project is lightweight and does not require complex configuration or secrets:
 
-### 8.1 HTTP Server Output
+| Variable | Required | Default | Description |
+| --- | --- | --- | --- |
+| `PORT` | Optional | `3000` | The TCP port on which the Express server listens. Can be overridden in PowerShell via `$env:PORT=5000` to run both servers simultaneously. |
 
-![HTTP Server Verification](./screenshots/01-http-server.png)
-*Description: HTTP server listening on port 3000 and returning "Hello".*
-
-### 8.2 Express Server - Root (`GET /`)
-
-![Express Root Endpoint](./screenshots/02-express-welcome.png)
-*Description: Express server returning welcome text with HTTP status 200.*
-
-### 8.3 Express Server - About (`GET /about`)
-
-![Express About Endpoint](./screenshots/03-express-about.png)
-*Description: Express server returning JSON with student name and section.*
-
-### 8.4 Express Server - Time (`GET /time`)
-
-![Express Time Endpoint](./screenshots/04-express-time.png)
-*Description: Express server returning current date and time using `new Date()`.*
-
-### 8.5 Express Server - 404 Catch-All Handler
-
-![Express 404 Handler](./screenshots/05-express-404.png)
-*Description: Express server returning 404 Not Found for undefined routes.*
+*No sensitive credentials, API keys, or `.env` secrets are needed for this project.*
 
 ---
 
-## 9. Problems Faced and Solutions
+## 9. Screenshot Section
+
+Place your captured verification images inside the `screenshots/` directory. The markdown references below link directly to the required files:
+
+### 9.1 HTTP Server Output
+![HTTP Server Verification](screenshots/01-http-server.png)
+*Description: HTTP server listening on port 3000 and returning "Hello".*
+
+### 9.2 Express Server - Root (`GET /`)
+![Express Root Endpoint](screenshots/02-express-welcome.png)
+*Description: Express server returning welcome text with HTTP status 200.*
+
+### 9.3 Express Server - About (`GET /about`)
+![Express About Endpoint](screenshots/03-express-about.png)
+*Description: Express server returning JSON with student name and section.*
+
+### 9.4 Express Server - Time (`GET /time`)
+![Express Time Endpoint](screenshots/04-express-time.png)
+*Description: Express server returning current date and time using `new Date()`.*
+
+### 9.5 Express Server - 404 Catch-All Handler
+![Express 404 Handler](screenshots/05-express-404.png)
+*Description: Express server returning 404 Not Found for undefined routes.*
+
+> **Screenshot Status:** Pending user capture. Once you take the screenshots, save them with the exact names listed above in the `lab-01/screenshots/` folder.
+
+---
+
+## 10. Problems Faced and Solutions
 
 ### Problem 1: Port Address Conflict (`EADDRINUSE`)
 
@@ -228,8 +245,9 @@ Place your captured verification images inside the `screenshots/` directory and 
 
 ---
 
-## 10. Live Deployment
+## 11. Live Deployment
 
-- **Deployment Platform:** [Render / Railway / Vercel]
-- **Live Application URL:** `[https://your-deployment-link-placeholder.onrender.com]`
+- **Deployment Status:** Pending
+- **Deployment Platform:** Pending (e.g. Render / Railway / Vercel)
+- **Live Application URL:** Pending (to be updated once deployment is performed)
 - *Note: To deploy live, connect your GitHub repository containing this lab to Render or Railway and set the build command to `npm install` and start command to `node server.js`.*

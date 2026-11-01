@@ -52,10 +52,16 @@ app.use((req, res) => {
   res.status(404).send('404 Not Found: The requested route does not exist.');
 });
 // ==========================================
-// START SERVER
+// START SERVER & EXPORT
 // ==========================================
-// Step 4: Start Express server and listen for incoming connections
-app.listen(PORT, () => {
-  console.log(`Express Server is running successfully at http://localhost:${PORT}`);
-});
+
+// Step 4: Start Express server locally when executed directly
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Express Server is running successfully at http://localhost:${PORT}`);
+  });
+}
+
+// Export Express app for Vercel serverless deployment
+module.exports = app;
 
