@@ -1,4 +1,4 @@
-# Node.js and Express Server
+# BDF Lab 01 – Node.js and Express Server
 
 ## Student Information
 
@@ -7,6 +7,8 @@
 - **Section:** CSE 1A (AI & DE)
 - **Course:** Backend Development Frameworks (BDF)
 - **Lab Number:** 01
+- **GitHub Repository:** [https://github.com/manishwarreddy/BDF-LabS](https://github.com/manishwarreddy/BDF-LabS)
+- **Live Application URL:** [https://lab-01-rho.vercel.app](https://lab-01-rho.vercel.app)
 
 ---
 
@@ -14,30 +16,39 @@
 
 This project demonstrates the core fundamentals of building backend web servers in Node.js. It is divided into two progressive components:
 
-1. **Low-level HTTP Server:** Implemented using Node.js's built-in `http` module to understand the fundamental request-response cycle and event loop handling in Node.js without third-party frameworks.
-2. **Express.js Web Server:** Implemented using the popular, minimalist Express.js framework to demonstrate high-level routing, HTTP status code management, JSON serialization, dynamic date generation, and centralized 404 error handling for unhandled routes.
+1. **Low-level HTTP Server:** Implemented using Node.js's built-in `http` module (`http-server.js`) to demonstrate the fundamental request-response cycle and event loop handling without third-party frameworks.
+2. **Express.js Web Server:** Implemented using Express.js (`server.js`) to demonstrate declarative routing, HTTP status code handling, JSON serialization, dynamic date generation, and centralized 404 error handling for unhandled routes.
 
 ---
 
-## 2. Explanation of `package.json` Fields
+## 2. Links & Live Deployment
+
+- **Live Application URL:** [https://lab-01-rho.vercel.app](https://lab-01-rho.vercel.app)
+- **GitHub Repository:** [https://github.com/manishwarreddy/BDF-LabS](https://github.com/manishwarreddy/BDF-LabS)
+- **Deployment Platform:** Vercel (Fluid Compute Serverless Runtime)
+- **Deployment Status:** Deployed & Active
+
+---
+
+## 3. Explanation of `package.json` Fields
 
 The `package.json` file serves as the manifest for any Node.js project. It maintains project metadata, script commands, and external package dependencies:
 
 | Field | Purpose & Explanation |
 | --- | --- |
-| `"name"` | Specifies the unique name of the project or package (e.g., `"lab-01"`). Must be lowercase and URL-friendly. |
+| `"name"` | Specifies the unique name of the project or package (`"lab-01"`). Must be lowercase and URL-friendly. |
 | `"version"` | Follows Semantic Versioning (`MAJOR.MINOR.PATCH`, e.g., `"1.0.0"`). |
 | `"description"` | A concise summary explaining what this package or project accomplishes. |
 | `"main"` | The primary entry point file of the application that gets executed when the package is required or started (set to `"server.js"`). |
 | `"scripts"` | Key-value dictionary defining shortcut CLI commands that can be executed via `npm run <script-name>`. For instance, `"start": "node server.js"` and `"start:http": "node http-server.js"`. |
 | `"keywords"` | An array of strings/tags that describe the project and aid in cataloging or searching. |
 | `"author"` | Identifies the author/creator of the project (`"A. Manishwar Reddy"`). |
-| `"license"` | Identifies the legal licensing terms under which the code is released (e.g., `"ISC"`). |
-| `"dependencies"` | Lists third-party npm packages required by the application in production (e.g., `"express": "^5.3.0"`). The `^` (caret) allows npm to install compatible minor and patch updates. |
+| `"license"` | Identifies the legal licensing terms under which the code is released (`"ISC"`). |
+| `"dependencies"` | Lists third-party npm packages required by the application in production (`"express": "^5.3.0"`). The `^` (caret) allows npm to install compatible minor and patch updates. |
 
 ---
 
-## 3. Project Structure
+## 4. Project Structure
 
 ```text
 lab-01/
@@ -45,22 +56,25 @@ lab-01/
 ├── server.js           # Express.js server with routes and 404 handling
 ├── package.json        # Project metadata and dependencies
 ├── package-lock.json   # Exact dependency version lockfile
-├── .gitignore          # Ignored files (node_modules, .env, logs)
+├── .gitignore          # Ignored files (node_modules, .env, logs, .vercel)
 ├── screenshots/        # Output screenshots for lab submission
-│   └── README.md       # Screenshot guidelines
+│   ├── 02-express-welcome.png
+│   ├── 03-express-about.png
+│   ├── 04-express-time.png
+│   └── README.md
 └── README.md           # Lab documentation and explanations
 ```
 
 ---
 
-## 4. Installation & Setup Instructions
+## 5. Installation & Setup Instructions
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18.x or later installed)
 - [npm](https://www.npmjs.com/) (bundled automatically with Node.js)
 
-### Steps to Install and Run
+### Steps to Install and Run Locally
 
 1. Open your terminal and navigate to the project directory:
 
@@ -80,13 +94,15 @@ lab-01/
    npm start
    ```
 
+- **Local Server URL:** `http://localhost:3000`
+
 ---
 
-## 5. Commands to Run Both Servers
+## 6. Commands to Run Both Servers
 
 > **Note on Ports:** Both `http-server.js` and `server.js` are configured to run on port `3000` by default. To test them individually, stop the active server using `Ctrl + C` in your terminal before launching the other.
 
-### 5.1 Running the HTTP Server
+### 6.1 Running the HTTP Server
 The basic HTTP server uses Node.js's built-in `http` module and requires no external dependencies.
 
 Using node:
@@ -102,17 +118,11 @@ npm run start:http
 ```
 
 - **Console Output:** `HTTP Server is running successfully at http://localhost:3000`
-- **Response:** Visit `http://localhost:3000` in your browser or run:
-
-  ```bash
-  curl http://localhost:3000
-  ```
-
-  Expected output: `Hello`
+- **Response:** Visit `http://localhost:3000` or run `curl http://localhost:3000` $\rightarrow$ `Hello`
 
 ---
 
-### 5.2 Running the Express Server
+### 6.2 Running the Express Server
 The Express server provides structured routing, HTTP status codes, JSON responses, and centralized error handling.
 
 Using node:
@@ -131,15 +141,15 @@ npm start
 
 ---
 
-## 6. Endpoint Documentation
+## 7. Endpoint Documentation
 
-### 6.1 HTTP Server (`http-server.js`)
+### 7.1 HTTP Server (`http-server.js`)
 
 | Method | Endpoint | Status Code | Expected Response |
 |---|---|---|---|
 | `GET` | `http://localhost:3000/` | `200 OK` | `Hello` |
 
-### 6.2 Express Server (`server.js`)
+### 7.2 Express Server (`server.js`)
 
 | Method | Endpoint | Status Code | Description | Sample Response |
 | --- | --- | --- | --- | --- |
@@ -150,11 +160,9 @@ npm start
 
 ---
 
-## 7. How to Test Endpoints
+## 8. How to Test Endpoints
 
-You can verify the endpoints using `curl` commands in your terminal or by opening the URLs in your web browser.
-
-### In PowerShell / Command Prompt / Terminal
+### Local Testing (Terminal / PowerShell / Browser)
 
 ```bash
 # 1. Test Root Route (Welcome Text)
@@ -170,84 +178,64 @@ curl http://localhost:3000/time
 curl http://localhost:3000/non-existent-page
 ```
 
-### In PowerShell with Status Code Inspection
+### Live Vercel Deployment Testing
 
-```powershell
-Invoke-WebRequest -Uri "http://localhost:3000/" | Select-Object StatusCode, Content
-Invoke-WebRequest -Uri "http://localhost:3000/about" | Select-Object StatusCode, Content
-Invoke-WebRequest -Uri "http://localhost:3000/time" | Select-Object StatusCode, Content
-Invoke-WebRequest -Uri "http://localhost:3000/invalid" -SkipHttpErrorCheck | Select-Object StatusCode, Content
+```bash
+# 1. Test Root Route
+curl https://lab-01-rho.vercel.app/
+
+# 2. Test About Route
+curl https://lab-01-rho.vercel.app/about
+
+# 3. Test Time Route
+curl https://lab-01-rho.vercel.app/time
+
+# 4. Test 404 Catch-All Route
+curl -i https://lab-01-rho.vercel.app/invalid-endpoint
 ```
 
 ---
 
-## 8. Environment Variables
+## 9. Verification Screenshots
 
-This project is lightweight and does not require complex configuration or secrets:
+The following verified output screenshots are stored in [`lab-01/screenshots/`](screenshots/):
 
-| Variable | Required | Default | Description |
-| --- | --- | --- | --- |
-| `PORT` | Optional | `3000` | The TCP port on which the Express server listens. Can be overridden in PowerShell via `$env:PORT=5000` to run both servers simultaneously. |
+### 9.1 Express Server - Welcome Route (`GET /`)
+![Express Welcome Endpoint](screenshots/02-express-welcome.png)
+*Description: Browser/client output showing HTTP 200 OK and welcome text.*
 
-*No sensitive credentials, API keys, or `.env` secrets are needed for this project.*
-
----
-
-## 9. Screenshot Section
-
-Place your captured verification images inside the `screenshots/` directory. The markdown references below link directly to the required files:
-
-### 9.1 HTTP Server Output
-![HTTP Server Verification](screenshots/01-http-server.png)
-*Description: HTTP server listening on port 3000 and returning "Hello".*
-
-### 9.2 Express Server - Root (`GET /`)
-![Express Root Endpoint](screenshots/02-express-welcome.png)
-*Description: Express server returning welcome text with HTTP status 200.*
-
-### 9.3 Express Server - About (`GET /about`)
+### 9.2 Express Server - About Route (`GET /about`)
 ![Express About Endpoint](screenshots/03-express-about.png)
-*Description: Express server returning JSON with student name and section.*
+*Description: JSON response returning student name and section with HTTP 200 OK.*
 
-### 9.4 Express Server - Time (`GET /time`)
+### 9.3 Express Server - Time Route (`GET /time`)
 ![Express Time Endpoint](screenshots/04-express-time.png)
-*Description: Express server returning current date and time using `new Date()`.*
-
-### 9.5 Express Server - 404 Catch-All Handler
-![Express 404 Handler](screenshots/05-express-404.png)
-*Description: Express server returning 404 Not Found for undefined routes.*
-
-> **Screenshot Status:** Pending user capture. Once you take the screenshots, save them with the exact names listed above in the `lab-01/screenshots/` folder.
+*Description: Output showing the dynamic current date and time generated using `new Date()`.*
 
 ---
 
-## 10. Problems Faced and Solutions
+## 10. Notes & Technical Key Learnings
+
+- **Built-in `http` vs. `express`:** The built-in Node.js `http` module is lightweight and requires no external dependencies, but routing, query parsing, and status code management must be handled manually. Express provides an abstraction layer with expressive routing (`app.get`), automatic MIME type setting via `res.json()`, and modular middleware.
+- **Middleware Ordering for 404 Handling:** Express executes middleware and routes in the sequential order they are registered. The catch-all 404 handler (`app.use((req, res) => { ... })`) is positioned at the very end of `server.js` so it only intercepts requests that do not match any defined endpoint.
+- **Serverless Compatibility (Vercel):** To support deployment on Vercel's Fluid Compute without breaking local `npm start` execution, `server.js` exports the app via `module.exports = app;` while wrapping `app.listen()` inside `if (require.main === module)`. This allows local standalone execution on port 3000 while enabling Vercel to invoke the app on demand as a serverless function.
+- **Environment Variables:** The application supports an optional `PORT` environment variable (`process.env.PORT || 3000`) for port flexibility during concurrent testing. No sensitive secrets or database credentials are required for this lab.
+
+---
+
+## 11. Problems Faced and Solutions
 
 ### Problem 1: Port Address Conflict (`EADDRINUSE`)
-
 - **Issue:** Attempting to start both `http-server.js` and `server.js` simultaneously resulted in an `Error: listen EADDRINUSE: address already in use :::3000`.
-- **Cause:** Two separate server processes cannot bind to the exact same TCP port (`3000`) on the local network interface at the same time.
-- **Solution:**
-  1. Stop the currently active server using `Ctrl + C` before running the other server.
-  2. In `server.js`, configure `const PORT = process.env.PORT || 3000;`, enabling concurrent testing on another port if required (e.g., `$env:PORT=5000; node server.js`).
+- **Cause:** Two separate server processes cannot bind to the same TCP port (`3000`) on the local network interface at the same time.
+- **Solution:** Stop the currently active server using `Ctrl + C` before running the other server, or override the port for Express using `$env:PORT=5000; node server.js`.
 
 ### Problem 2: Route Precedence and 404 Catch-All Handler Interception
-
 - **Issue:** If the 404 handler middleware is declared at the top of the file before route definitions, all incoming requests immediately return `404 Not Found`, even valid routes like `/about`.
-- **Cause:** Express processes middleware and route handlers sequentially from top to bottom.
-- **Solution:** Always position the catch-all middleware (`app.use((req, res) => { ... })`) at the very end of the middleware stack, after all specific route handlers (`/`, `/about`, `/time`) have been registered.
+- **Cause:** Express processes middleware sequentially from top to bottom.
+- **Solution:** Always position the catch-all middleware at the very bottom of the file after all specific route handlers (`/`, `/about`, `/time`).
 
 ### Problem 3: Distinguishing Plain Text vs. JSON Responses
-
-- **Issue:** Returning JavaScript objects with `res.send()` or incorrect headers can lead to serialization issues or incorrect client-side MIME types.
+- **Issue:** Returning JavaScript objects without proper headers can lead to serialization issues or incorrect client-side MIME types.
 - **Cause:** Browsers and API clients rely on the `Content-Type` header (`text/plain` vs `application/json`) to properly parse payloads.
-- **Solution:** Use Express's specialized `res.status(200).json({ ... })` method for the `/about` endpoint to ensure the response header is automatically set to `application/json; charset=utf-8` and formatted properly.
-
----
-
-## 11. Live Deployment
-
-- **Deployment Status:** Deployed & Active
-- **Deployment Platform:** Vercel
-- **Live Application URL:** [https://lab-01-rho.vercel.app](https://lab-01-rho.vercel.app)
-- **Deployment Preview URL:** [https://lab-01-8vm25cvuc-ashammagarimanishwarreddy-7609s-projects.vercel.app](https://lab-01-8vm25cvuc-ashammagarimanishwarreddy-7609s-projects.vercel.app)
+- **Solution:** Use Express's specialized `res.status(200).json({ ... })` method for the `/about` endpoint to automatically set the response header to `application/json; charset=utf-8`.
