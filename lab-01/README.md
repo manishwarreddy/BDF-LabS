@@ -247,7 +247,7 @@ Place your captured verification images inside the `screenshots/` directory. The
 
 ## 11. Live Deployment
 
-- **Deployment Status:** Pending
-- **Deployment Platform:** Pending (e.g. Render / Railway / Vercel)
-- **Live Application URL:** Pending (to be updated once deployment is performed)
-- *Note: To deploy live, connect your GitHub repository containing this lab to Render or Railway and set the build command to `npm install` and start command to `node server.js`.*
+- **Deployment Status:** Deployed & Active
+- **Deployment Platform:** Vercel
+- **Live Application URL:** [https://lab-01-rho.vercel.app](https://lab-01-rho.vercel.app)
+- **Deployment Preview URL:** [https://lab-01-8vm25cvuc-ashammagarimanishwarreddy-7609s-projects.vercel.app](https://lab-01-8vm25cvuc-ashammagarimanishwarreddy-7609s-projects.vercel.app)
