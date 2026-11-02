@@ -8,10 +8,56 @@
 - **Course:** Backend Development Frameworks (BDF)
 - **Lab Number:** 02
 - **GitHub Repository:** [https://github.com/manishwarreddy/BDF-LabS](https://github.com/manishwarreddy/BDF-LabS)
+- **Live Deployment URL (Vercel):** [https://lab-02-two.vercel.app](https://lab-02-two.vercel.app)
+- **Deployment Platform:** Vercel (Express Serverless Runtime, Node.js 24)
+- **Deployment Status:** Deployed & Active
 
 ---
 
-## 1. Project Overview
+## 1. Live Deployment & Serverless Architecture
+
+- **Public Live URL:** [https://lab-02-two.vercel.app](https://lab-02-two.vercel.app)
+- **Root Health Check:** [https://lab-02-two.vercel.app/](https://lab-02-two.vercel.app/)
+- **Books Endpoint:** [https://lab-02-two.vercel.app/books/](https://lab-02-two.vercel.app/books/)
+
+### SQLite on Vercel Serverless: Behavior & Limitations
+
+> [!IMPORTANT]
+> **Serverless Filesystem Limitations:**
+> 1. **Read-Only Application Bundle:** In Vercel's serverless environment, the deployed project root (`/var/task/`) is strictly **read-only**. Opening an SQLite database in write mode at that location will fail with `SQLITE_READONLY` or `EROFS`.
+> 2. **Ephemeral `/tmp` Storage:** To preserve full CRUD functionality, the server dynamically copies the bundled, pre-seeded `books.db` (containing all 10 sample books) to `/tmp/books.db` on cold boot.
+> 3. **Non-Persistent Writes:** While `POST`, `PUT`, and `DELETE` requests succeed during runtime in `/tmp`, writes are **ephemeral** and do **not persist permanently** across cold starts, redeployments, or separate serverless container instances.
+> 4. **Production Recommendation:** For production architectures requiring persistent relational storage across serverless functions, a remote managed database (e.g., PostgreSQL, Neon, Turso LibSQL, Supabase) should be used instead of embedded SQLite file storage.
+
+### Live Endpoint Verification Commands
+
+```bash
+# 1. Health check
+curl -i https://lab-02-two.vercel.app/
+
+# 2. Retrieve all books (returns 10 sample records)
+curl -i https://lab-02-two.vercel.app/books/
+
+# 3. Retrieve single book by ID
+curl -i https://lab-02-two.vercel.app/books/1/
+
+# 4. Insert new book record
+curl -i -X POST https://lab-02-two.vercel.app/books/ \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Designing Data-Intensive Applications","author":"Martin Kleppmann","price":750,"pages":616}'
+
+# 5. Update book record
+curl -i -X PUT https://lab-02-two.vercel.app/books/1/ \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Clean Code (Updated Edition)","author":"Robert C. Martin","price":480,"pages":464}'
+
+# 6. Delete book record
+curl -i -X DELETE https://lab-02-two.vercel.app/books/10/
+```
+
+---
+
+## 2. Project Overview
 
 This project implements a complete, database-driven RESTful API using **Node.js**, **Express.js**, and an embedded **SQLite** database (`books.db`). 
 
@@ -272,6 +318,49 @@ BDF Lab 02 - SQLite & Express CRUD API
   √  Response confirms book deletion
 
 Iterations: 1/1 | Requests: 5/5 | Assertions: 10/10 passed (0 failed)
+```
+
+### Live Vercel Automated Collection Run (Newman)
+All 5 requests and 10 test assertions were also executed against the live deployed Vercel application (`https://lab-02-two.vercel.app`):
+
+```text
+npx newman run lab-02/BDF-Lab-02.postman_collection.json --env-var "baseUrl=https://lab-02-two.vercel.app"
+
+BDF Lab 02 - SQLite & Express CRUD API
+
+→ 1. GET All Books
+  GET https://lab-02-two.vercel.app/books/ [200 OK, 1.38kB, 471ms]
+  √  Status code is 200 OK
+  √  Response is an array of books
+
+→ 2. GET Single Book by ID
+  GET https://lab-02-two.vercel.app/books/1/ [200 OK, 498B, 282ms]
+  √  Status code is 200 OK
+  √  Response contains valid book details
+
+→ 3. POST Add New Book
+  POST https://lab-02-two.vercel.app/books/ [201 Created, 463B, 309ms]
+  √  Status code is 201 Created
+  √  Response confirms book addition and returns bookId
+
+→ 4. PUT Update Book Details
+  PUT https://lab-02-two.vercel.app/books/14/ [200 OK, 456B, 270ms]
+  √  Status code is 200 OK
+  √  Response confirms book update
+
+→ 5. DELETE Book by ID
+  DELETE https://lab-02-two.vercel.app/books/14/ [200 OK, 448B, 286ms]
+  √  Status code is 200 OK
+  √  Response confirms book deletion
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+│                requests │                  5 │                  0 │
+│              assertions │                 10 │                  0 │
+│           total duration│               2.1s │                    │
+└─────────────────────────┴────────────────────┴────────────────────┘
 ```
 
 ---

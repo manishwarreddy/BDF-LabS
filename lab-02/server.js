@@ -5,6 +5,7 @@
 
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const { open } = require('sqlite');
 const sqlite3 = require('sqlite3');
 
@@ -13,33 +14,81 @@ const app = express();
 // Middleware to parse incoming JSON request bodies
 app.use(express.json());
 
-// Port and Database file path configuration
+// Port configuration
 const PORT = process.env.PORT || 3000;
-const dbPath = path.join(__dirname, 'books.db');
 
 let db = null;
+let initPromise = null;
 
 /**
- * Asynchronously initialize SQLite database connection and start Express server
+ * Determine database path:
+ * On Vercel Serverless (process.env.VERCEL), the function deployment bundle directory is read-only.
+ * We copy the pre-seeded books.db from the bundle to /tmp/books.db if not already present.
+ * Locally and in standard environments, books.db in the project folder is used directly.
+ */
+const getDatabasePath = () => {
+  if (process.env.VERCEL) {
+    const tmpDbPath = path.join('/tmp', 'books.db');
+    const sourceDbPath = path.join(__dirname, 'books.db');
+    if (!fs.existsSync(tmpDbPath)) {
+      if (fs.existsSync(sourceDbPath)) {
+        fs.copyFileSync(sourceDbPath, tmpDbPath);
+      }
+    }
+    return tmpDbPath;
+  }
+  return path.join(__dirname, 'books.db');
+};
+
+/**
+ * Asynchronously initialize SQLite database connection
+ */
+const initializeDB = async () => {
+  if (db) return db;
+  if (!initPromise) {
+    initPromise = (async () => {
+      const dbPath = getDatabasePath();
+      const database = await open({
+        filename: dbPath,
+        driver: sqlite3.Database,
+      });
+
+      // Ensure book table exists
+      await database.run(`
+        CREATE TABLE IF NOT EXISTS book (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          author TEXT NOT NULL,
+          price REAL NOT NULL,
+          pages INTEGER NOT NULL
+        );
+      `);
+
+      db = database;
+      return db;
+    })();
+  }
+  return initPromise;
+};
+
+/**
+ * Middleware: ensure DB is initialized before processing any route
+ */
+app.use(async (req, res, next) => {
+  try {
+    await initializeDB();
+    next();
+  } catch (error) {
+    res.status(500).send({ error: `Database Connection Error: ${error.message}` });
+  }
+});
+
+/**
+ * Asynchronously initialize SQLite database connection and start Express server (Local execution)
  */
 const initializeDBAndServer = async () => {
   try {
-    db = await open({
-      filename: dbPath,
-      driver: sqlite3.Database,
-    });
-
-    // Ensure book table exists
-    await db.run(`
-      CREATE TABLE IF NOT EXISTS book (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        author TEXT NOT NULL,
-        price REAL NOT NULL,
-        pages INTEGER NOT NULL
-      );
-    `);
-
+    await initializeDB();
     app.listen(PORT, () => {
       console.log(`Server Running at http://localhost:${PORT}/`);
     });
@@ -49,7 +98,10 @@ const initializeDBAndServer = async () => {
   }
 };
 
-initializeDBAndServer();
+// Start local server when run directly
+if (require.main === module) {
+  initializeDBAndServer();
+}
 
 // ==========================================
 // CRUD API ROUTES
