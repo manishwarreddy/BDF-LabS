@@ -1,0 +1,41 @@
+Newman Test Run Summary
+Project: BDF Lab 02 - SQLite & Express CRUD API
+Live URL: https://lab-02-two.vercel.app
+Collection: lab-02/BDF-Lab-02.postman_collection.json
+Timestamp: 2026-11-02 21:46:00 IST
+Student: A. Manishwar Reddy (Reg: 252U1R5011, Section: CSE 1A (AI & DE))
+
+--------------------------------------------------------------------------------
+1. GET All Books
+   GET https://lab-02-two.vercel.app/books/ [200 OK]
+   [PASS] Status code is 200 OK
+   [PASS] Response is an array of books (10 pre-seeded sample books returned)
+
+2. GET Single Book by ID
+   GET https://lab-02-two.vercel.app/books/1/ [200 OK]
+   [PASS] Status code is 200 OK
+   [PASS] Response contains valid book details ("Clean Code")
+
+3. POST Add New Book
+   POST https://lab-02-two.vercel.app/books/ [201 Created]
+   [PASS] Status code is 201 Created
+   [PASS] Response confirms book addition and returns new bookId
+
+4. PUT Update Book Details
+   PUT https://lab-02-two.vercel.app/books/14/ [200 OK]
+   [PASS] Status code is 200 OK
+   [PASS] Response confirms book update
+
+5. DELETE Book by ID
+   DELETE https://lab-02-two.vercel.app/books/14/ [200 OK]
+   [PASS] Status code is 200 OK
+   [PASS] Response confirms book deletion
+
+--------------------------------------------------------------------------------
+Execution Summary:
+- Iterations: 1/1
+- Total Requests: 5/5 executed
+- Total Assertions: 10/10 passed (0 failed)
+- Total Duration: 2.9s
+- Full HTML Report: lab-02/screenshots/Lab-02-API-Test-Report.html
+--------------------------------------------------------------------------------

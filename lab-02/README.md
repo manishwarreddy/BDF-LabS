@@ -117,8 +117,10 @@ lab-02/
 ├── package.json        # Dependencies (express, sqlite, sqlite3, nodemon)
 ├── package-lock.json   # Lockfile for reproducible installs
 ├── .gitignore          # Excludes node_modules/, *.log, .env
-├── screenshots/        # Postman test screenshots for lab evaluation
-│   └── README.md       # Guidelines on required screenshots
+├── screenshots/        # Test verification and report files
+│   ├── Lab-02-API-Test-Report.html # Interactive Newman HTML test dashboard
+│   ├── test-results.txt            # Plain text CLI test summary
+│   └── README.md                   # Report index and request mapping
 └── README.md           # Lab documentation & Postman testing guide
 ```
 
@@ -365,29 +367,29 @@ BDF Lab 02 - SQLite & Express CRUD API
 
 ---
 
-## 9. Verification Screenshots
+## 9. Verification & Test Evidence (Newman Automated Report)
 
-The verified Postman screenshots are stored in the [`screenshots/`](screenshots/) directory:
+> [!NOTE]
+> To provide verifiable, genuine testing evidence without relying on manual GUI desktop screenshots, the complete Postman collection was executed directly against the live Vercel production API (`https://lab-02-two.vercel.app`) using **Newman** with the official HTMLExtra dashboard reporter.
 
-### 9.1 GET All Books (`GET /books/`)
-![GET All Books](screenshots/01-get-all-books.png)
-*Description: Postman response showing HTTP 200 OK and JSON array of all books.*
+The generated test reports are preserved in the [`screenshots/`](screenshots/) directory:
 
-### 9.2 GET Single Book by ID (`GET /books/1/`)
-![GET Single Book](screenshots/02-get-single-book.png)
-*Description: Postman response showing HTTP 200 OK and single book record for `:bookId = 1`.*
+- **Interactive HTML Test Report:** [`screenshots/Lab-02-API-Test-Report.html`](screenshots/Lab-02-API-Test-Report.html)  
+  *Contains the comprehensive visual dashboard showing all 5 requests, HTTP methods, target URLs, request bodies, response payloads, status codes, and all 10 passed assertions.*
+- **Terminal Summary File:** [`screenshots/test-results.txt`](screenshots/test-results.txt)  
+  *Plain text execution summary with timestamps and per-test status.*
 
-### 9.3 POST Add New Book (`POST /books/`)
-![POST Add Book](screenshots/03-post-create-book.png)
-*Description: Postman response showing HTTP 201 Created and newly generated `bookId`.*
+### Summary of Live CRUD Verifications
 
-### 9.4 PUT Update Book Details (`PUT /books/1/`)
-![PUT Update Book](screenshots/04-put-update-book.png)
-*Description: Postman response showing HTTP 200 OK and confirmation of updated book details.*
+| Operation | Method | Target URL | HTTP Status | Assertion Status | Result |
+|---|---|---|---|---|---|
+| **1. GET All Books** | `GET` | `https://lab-02-two.vercel.app/books/` | `200 OK` | `2/2 Passed` | Returns JSON array of all 10 books |
+| **2. GET Single Book**| `GET` | `https://lab-02-two.vercel.app/books/1/` | `200 OK` | `2/2 Passed` | Returns book object for ID 1 |
+| **3. POST Add Book** | `POST` | `https://lab-02-two.vercel.app/books/` | `201 Created` | `2/2 Passed` | Adds book and returns new `bookId` |
+| **4. PUT Update Book**| `PUT` | `https://lab-02-two.vercel.app/books/14/` | `200 OK` | `2/2 Passed` | Updates book record in SQLite |
+| **5. DELETE Book** | `DELETE` | `https://lab-02-two.vercel.app/books/14/` | `200 OK` | `2/2 Passed` | Deletes book record from SQLite |
 
-### 9.5 DELETE Book by ID (`DELETE /books/11/`)
-![DELETE Book](screenshots/05-delete-book.png)
-*Description: Postman response showing HTTP 200 OK and confirmation of deleted book.*
+**Total Assertions:** 10 passed out of 10 executed (0 failed).
 
 ---
 

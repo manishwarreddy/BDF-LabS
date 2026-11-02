@@ -17,3 +17,9 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
+# Postman & Vercel local cache
+.postman/
+postman/
+.vercel/
+
+
