@@ -8,7 +8,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:3000",
+      "value": "https://lab-02-two.vercel.app",
       "type": "string"
     },
     {

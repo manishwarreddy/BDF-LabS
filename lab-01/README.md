@@ -58,9 +58,11 @@ lab-01/
 ├── package-lock.json   # Exact dependency version lockfile
 ├── .gitignore          # Ignored files (node_modules, .env, logs, .vercel)
 ├── screenshots/        # Output screenshots for lab submission
+│   ├── 01-http-server.png
 │   ├── 02-express-welcome.png
 │   ├── 03-express-about.png
 │   ├── 04-express-time.png
+│   ├── 05-express-404.png
 │   └── README.md
 └── README.md           # Lab documentation and explanations
 ```
@@ -200,17 +202,25 @@ curl -i https://lab-01-rho.vercel.app/invalid-endpoint
 
 The following verified output screenshots are stored in [`lab-01/screenshots/`](screenshots/):
 
-### 9.1 Express Server - Welcome Route (`GET /`)
+### 9.1 Low-level HTTP Server (`http-server.js`)
+![HTTP Server Hello Endpoint](screenshots/01-http-server.png)
+*Description: Browser output showing HTTP 200 OK and "Hello" text response from the built-in Node.js HTTP server.*
+
+### 9.2 Express Server - Welcome Route (`GET /`)
 ![Express Welcome Endpoint](screenshots/02-express-welcome.png)
 *Description: Browser/client output showing HTTP 200 OK and welcome text.*
 
-### 9.2 Express Server - About Route (`GET /about`)
+### 9.3 Express Server - About Route (`GET /about`)
 ![Express About Endpoint](screenshots/03-express-about.png)
 *Description: JSON response returning student name and section with HTTP 200 OK.*
 
-### 9.3 Express Server - Time Route (`GET /time`)
+### 9.4 Express Server - Time Route (`GET /time`)
 ![Express Time Endpoint](screenshots/04-express-time.png)
 *Description: Output showing the dynamic current date and time generated using `new Date()`.*
+
+### 9.5 Express Server - 404 Catch-All Route (`GET /unknown-route`)
+![Express 404 Endpoint](screenshots/05-express-404.png)
+*Description: Catch-all middleware response returning HTTP 404 Not Found for non-existent routes.*
 
 ---
 
