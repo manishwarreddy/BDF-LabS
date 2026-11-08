@@ -1,0 +1,114 @@
+================================================================================
+BDF Lab 03: REST API with Query Parameters, Validation & Debugging
+Automated Newman Test Execution Summary (Live Vercel Production)
+Student: A. Manishwar Reddy (Reg: 252U1R5011, Section: CSE 1A (AI & DE))
+Live Deployment: https://lab-03-ruby.vercel.app
+Date: 2026-11-08 | Environment: Vercel Serverless / Node.js 24.x / SQLite 3
+================================================================================
+
+Collection: BDF Lab 03 - REST API, Query Parameters & Validation
+Target Base URL: https://lab-03-ruby.vercel.app
+
+→ 1. GET All Books (Default Parameters)
+  GET https://lab-03-ruby.vercel.app/books/ [200 OK, 1.38kB, 574ms]
+  √ Status code is 200 OK
+  √ Response is an array of books
+
+→ 2. GET Books - Search by Title (search_q)
+  GET https://lab-03-ruby.vercel.app/books/?search_q=Clean [200 OK, 500B, 510ms]
+  √ Status code is 200 OK
+  √ Returned books match partial title 'Clean'
+
+→ 3. GET Books - Sort by Price ASC (order_by & order)
+  GET https://lab-03-ruby.vercel.app/books/?order_by=price&order=ASC [200 OK, 1.38kB, 590ms]
+  √ Status code is 200 OK
+  √ Books are sorted in ascending order of price
+
+→ 4. GET Books - Sort by Price DESC (order_by & order)
+  GET https://lab-03-ruby.vercel.app/books/?order_by=price&order=DESC [200 OK, 1.38kB, 318ms]
+  √ Status code is 200 OK
+  √ Books are sorted in descending order of price
+
+→ 5. GET Books - Pagination (limit & offset)
+  GET https://lab-03-ruby.vercel.app/books/?limit=3&offset=0 [200 OK, 709B, 359ms]
+  √ Status code is 200 OK
+  √ Returns exactly limit count of records
+
+→ 6. GET Books - Price Range Filter (min_price & max_price)
+  GET https://lab-03-ruby.vercel.app/books/?min_price=400&max_price=600 [200 OK, 893B, 253ms]
+  √ Status code is 200 OK
+  √ All returned books have price within range 400 - 600
+
+→ 7. GET Single Book by ID
+  GET https://lab-03-ruby.vercel.app/books/1/ [200 OK, 498B, 263ms]
+  √ Status code is 200 OK
+  √ Response contains valid book details for ID 1
+
+→ 8. POST Create Book (Valid Request - 201 Created)
+  POST https://lab-03-ruby.vercel.app/books/ [201 Created, 463B, 265ms]
+  √ Status code is 201 Created
+  √ Response confirms book addition and returns bookId
+
+→ 9. POST Reject Missing Title (Validation - 400 Bad Request)
+  POST https://lab-03-ruby.vercel.app/books/ [400 Bad Request, 542B, 256ms]
+  √ Status code is 400 Bad Request
+  √ Error response indicates missing title
+
+→ 10. POST Reject Missing Author (Validation - 400 Bad Request)
+  POST https://lab-03-ruby.vercel.app/books/ [400 Bad Request, 544B, 397ms]
+  √ Status code is 400 Bad Request
+  √ Error response indicates missing author
+
+→ 11. POST Reject Non-Numeric Price (Validation - 400 Bad Request)
+  POST https://lab-03-ruby.vercel.app/books/ [400 Bad Request, 548B, 362ms]
+  √ Status code is 400 Bad Request
+  √ Error response indicates invalid price
+
+→ 12. GET Reject Invalid order_by Column (Validation - 400 Bad Request)
+  GET https://lab-03-ruby.vercel.app/books/?order_by=injection_attempt [400 Bad Request, 638B, 288ms]
+  √ Status code is 400 Bad Request
+  √ Error response indicates invalid column
+
+→ 13. GET Reject min_price Greater Than max_price (Validation - 400 Bad Request)
+  GET https://lab-03-ruby.vercel.app/books/?min_price=900&max_price=300 [400 Bad Request, 538B, 261ms]
+  √ Status code is 400 Bad Request
+  √ Error response indicates min_price > max_price
+
+→ 14. PUT Update Book Details (200 OK)
+  PUT https://lab-03-ruby.vercel.app/books/:bookId/ [200 OK, 456B, 262ms]
+  √ Status code is 200 OK
+  √ Response confirms book update
+
+→ 15. DELETE Book by ID (200 OK)
+  DELETE https://lab-03-ruby.vercel.app/books/:bookId/ [200 OK, 448B, 268ms]
+  √ Status code is 200 OK
+  √ Response confirms book deletion
+
+→ 16. GET Book by Non-Existent ID (404 Not Found)
+  GET https://lab-03-ruby.vercel.app/books/99999/ [404 Not Found, 477B, 257ms]
+  √ Status code is 404 Not Found
+  √ Returns error object for missing book
+
+→ 17. PUT Update Non-Existent ID (404 Not Found)
+  PUT https://lab-03-ruby.vercel.app/books/99999/ [404 Not Found, 469B, 324ms]
+  √ Status code is 404 Not Found
+  √ Returns error object for non-existent update
+
+→ 18. DELETE Non-Existent ID (404 Not Found)
+  DELETE https://lab-03-ruby.vercel.app/books/99999/ [404 Not Found, 469B, 324ms]
+  √ Status code is 404 Not Found
+  √ Returns error object for non-existent deletion
+
+--------------------------------------------------------------------------------
+Execution Summary:
+Iterations: 1 / 1
+Total Requests Executed: 18 / 18
+Total Assertions: 36
+Passed Assertions: 36 (100%)
+Failed Assertions: 0 (0%)
+Total Run Duration: 7.5s
+Average Response Time: 340ms
+Report Artifact: lab-03/screenshots/Lab-03-API-Test-Report.html
+--------------------------------------------------------------------------------
+SUCCESS: ALL 36 ASSERTIONS PASSED AGAINST LIVE VERCEL PRODUCTION API!
+================================================================================
