@@ -6,6 +6,7 @@
 **Registration Number:** 252U1R5011  
 **Section:** CSE 1A (AI & DE)  
 **Live Deployed API:** [https://lab-03-ruby.vercel.app](https://lab-03-ruby.vercel.app)
+**GitHub Repository:** [https://github.com/manishwarreddy/BDF-LabS](https://github.com/manishwarreddy/BDF-LabS)
 
 ---
 
@@ -474,7 +475,7 @@ The project is deployed in production on Vercel:
 ## 11. Installation & Local Execution Guide
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v18.x or v24.x)
+- [Node.js](https://nodejs.org/) (v24.x, as specified by `package.json`)
 - [npm](https://www.npmjs.com/)
 
 ### Step-by-Step Setup:
@@ -494,7 +495,11 @@ The project is deployed in production on Vercel:
    ```bash
    npm run dev
    ```
-4. Run automated Newman tests locally:
+4. Run the Newman collection. By default, its `baseUrl` collection variable targets the deployed API, so this command exercises the live deployment:
    ```bash
    npm run test:api
+   ```
+   To target a local server instead, start it in one terminal and run Newman in another with the collection variable overridden:
+   ```bash
+   npx newman run BDF-Lab-03.postman_collection.json --env-var "baseUrl=http://localhost:3000"
    ```

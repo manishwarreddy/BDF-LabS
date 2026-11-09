@@ -2,11 +2,28 @@
 
 This directory contains verified test reports and execution summaries for BDF Lab 03 executed against the live deployed Vercel production API: **`https://lab-03-ruby.vercel.app`**.
 
+## Retained individual screenshots
+
+- `Chrome-GET-All-Books.png`
+- `Chrome-Search-Books.png`
+- `Chrome-Sort-Books.png`
+- `Chrome-Pagination.png`
+- `Chrome-Price-Filter.png`
+- `Chrome-GET-Book-By-ID.png`
+- `Chrome-GET-Not-Found.png`
+- `Postman-POST-Create-Book.png`
+- `Postman-POST-Validation-Error.png`
+- `Postman-PUT-Update-Book.png`
+- `Postman-DELETE-Book.png`
+
+The Chrome images show the deployed endpoint URL and raw JSON response. The Postman screenshots show the actual method, complete URL, response status, and JSON response. Request bodies are visible for POST and PUT; DELETE has no request body.
+
 ## Test Artifacts
 - **Interactive HTML Test Report:** [`Lab-03-API-Test-Report.html`](Lab-03-API-Test-Report.html)  
   *Comprehensive HTMLExtra visual dashboard with request/response payloads, HTTP status codes, headers, and 36 passed assertions across all 18 test cases on the live deployment.*
 - **Terminal Summary File:** [`test-results.txt`](test-results.txt)  
   *Timestamped plain text summary of the live Newman collection run.*
+- **Latest Newman output:** `Lab-03-Newman-2026-11-09.html` and `Lab-03-Newman-2026-11-09.txt` (18 requests, 36 assertions, 0 failures).
 
 ## Test Cases Summary (18/18 Passed, 36/36 Assertions Passed)
 

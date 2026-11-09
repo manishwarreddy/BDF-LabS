@@ -242,7 +242,44 @@
         "description": "Deletes a book matching :bookId from the SQLite database."
       },
       "response": []
+    },
+    {
+      "name": "6. GET Deleted Book Returns 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404 Not Found\", function () {",
+              "    pm.response.to.have.status(404);",
+              "});",
+              "",
+              "pm.test(\"Response confirms deleted book is missing\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.error).to.eql(\"Book not found\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/books/{{newBookId}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "books",
+            "{{newBookId}}",
+            ""
+          ]
+        },
+        "description": "Confirms the book created by this collection is no longer available after DELETE."
+      },
+      "response": []
     }
   ]
 }
-

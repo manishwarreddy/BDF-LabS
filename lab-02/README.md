@@ -117,9 +117,15 @@ lab-02/
 ├── package.json        # Dependencies (express, sqlite, sqlite3, nodemon)
 ├── package-lock.json   # Lockfile for reproducible installs
 ├── .gitignore          # Excludes node_modules/, *.log, .env
-├── screenshots/        # Test verification and report files
-│   ├── Lab-02-API-Test-Report.html # Interactive Newman HTML test dashboard
-│   ├── test-results.txt            # Plain text CLI test summary
+├── screenshots/        # Test verification and screenshot files
+│   ├── Chrome-GET-All-Books.png
+│   ├── Chrome-GET-Book-By-ID.png
+│   ├── Chrome-GET-Deleted-Book-404.png
+│   ├── Postman-POST-Create-Book.png
+│   ├── Postman-PUT-Update-Book.png
+│   ├── Postman-DELETE-Book.png
+│   ├── Lab-02-Newman-2026-11-09.html/.txt # Latest Newman reports
+│   ├── Lab-02-API-Test-Report.html, test-results.txt # Earlier reports
 │   └── README.md                   # Report index and request mapping
 └── README.md           # Lab documentation & Postman testing guide
 ```
@@ -367,29 +373,33 @@ BDF Lab 02 - SQLite & Express CRUD API
 
 ---
 
-## 9. Verification & Test Evidence (Newman Automated Report)
+## 9. Verification & Test Evidence
 
-> [!NOTE]
-> To provide verifiable, genuine testing evidence without relying on manual GUI desktop screenshots, the complete Postman collection was executed directly against the live Vercel production API (`https://lab-02-two.vercel.app`) using **Newman** with the official HTMLExtra dashboard reporter.
+### 9.1 CRUD Endpoint Verification Screenshots
 
-The generated test reports are preserved in the [`screenshots/`](screenshots/) directory:
+The six individual practical screenshots are stored in [`screenshots/`](screenshots/):
 
-- **Interactive HTML Test Report:** [`screenshots/Lab-02-API-Test-Report.html`](screenshots/Lab-02-API-Test-Report.html)  
-  *Contains the comprehensive visual dashboard showing all 5 requests, HTTP methods, target URLs, request bodies, response payloads, status codes, and all 10 passed assertions.*
-- **Terminal Summary File:** [`screenshots/test-results.txt`](screenshots/test-results.txt)  
-  *Plain text execution summary with timestamps and per-test status.*
+| Screenshot | Operation |
+|---|---|
+| [Chrome-GET-All-Books.png](screenshots/Chrome-GET-All-Books.png) | GET `/books/` |
+| [Chrome-GET-Book-By-ID.png](screenshots/Chrome-GET-Book-By-ID.png) | GET `/books/1/` |
+| [Chrome-GET-Deleted-Book-404.png](screenshots/Chrome-GET-Deleted-Book-404.png) | GET `/books/99999/` (404) |
+| [Postman-POST-Create-Book.png](screenshots/Postman-POST-Create-Book.png) | POST `/books/` (201; request body shown) |
+| [Postman-PUT-Update-Book.png](screenshots/Postman-PUT-Update-Book.png) | PUT `/books/:bookId/` (200; request body shown) |
+| [Postman-DELETE-Book.png](screenshots/Postman-DELETE-Book.png) | DELETE `/books/:bookId/` (200) |
 
-### Summary of Live CRUD Verifications
+Chrome captures show the deployed URL and raw JSON. Postman captures show the method, full URL, response status, and JSON response.
 
-| Operation | Method | Target URL | HTTP Status | Assertion Status | Result |
-|---|---|---|---|---|---|
-| **1. GET All Books** | `GET` | `https://lab-02-two.vercel.app/books/` | `200 OK` | `2/2 Passed` | Returns JSON array of all 10 books |
-| **2. GET Single Book**| `GET` | `https://lab-02-two.vercel.app/books/1/` | `200 OK` | `2/2 Passed` | Returns book object for ID 1 |
-| **3. POST Add Book** | `POST` | `https://lab-02-two.vercel.app/books/` | `201 Created` | `2/2 Passed` | Adds book and returns new `bookId` |
-| **4. PUT Update Book**| `PUT` | `https://lab-02-two.vercel.app/books/14/` | `200 OK` | `2/2 Passed` | Updates book record in SQLite |
-| **5. DELETE Book** | `DELETE` | `https://lab-02-two.vercel.app/books/14/` | `200 OK` | `2/2 Passed` | Deletes book record from SQLite |
+---
 
-**Total Assertions:** 10 passed out of 10 executed (0 failed).
+### 9.2 Automated Newman HTML Test Report & Execution Summary
+
+The latest saved run is from 2026-11-09 and completed against the live Vercel API:
+
+- **HTML report:** [`screenshots/Lab-02-Newman-2026-11-09.html`](screenshots/Lab-02-Newman-2026-11-09.html)
+- **Terminal output:** [`screenshots/Lab-02-Newman-2026-11-09.txt`](screenshots/Lab-02-Newman-2026-11-09.txt)
+- **Result:** 6 requests, 12 assertions passed, 0 failures. The collection covers GET all, GET by ID, POST, PUT, DELETE, and GET-after-DELETE 404 verification.
+- Earlier retained reports: [`screenshots/Lab-02-API-Test-Report.html`](screenshots/Lab-02-API-Test-Report.html) and [`screenshots/test-results.txt`](screenshots/test-results.txt).
 
 ---
 
@@ -405,4 +415,3 @@ The generated test reports are preserved in the [`screenshots/`](screenshots/) d
    - `db.all()`: Executes a `SELECT` query and returns an **array** of all matching row objects.
    - `db.get()`: Executes a `SELECT` query and returns only the **first** matching row object (or `undefined`).
    - `db.run()`: Executes non-query commands (`INSERT`, `UPDATE`, `DELETE`) and returns metadata like `lastID` and `changes`.
-
