@@ -6,7 +6,7 @@
 
 Both lab folders contain source, SQLite databases, Postman collections, documentation, practical screenshots, and Newman HTML/terminal reports. The deployed GET endpoints and the Lab 03 query behaviors passed read-only checks during this review. Saved Newman runs also report no failures.
 
-The local deliverables are present and readable. **The GitHub submission is not up to date yet:** evidence files and other worktree changes are not committed or pushed, so the public GitHub links below do not include the current local state.
+The local deliverables are present and readable, and are published on the repository's `main` branch. Commit [`4fd796a`](https://github.com/manishwarreddy/BDF-LabS/commit/4fd796a5e086563d8db72049d24ea987b693eba3) contains the verified Lab 02 and Lab 03 submission files.
 
 ## Lab 02
 
@@ -73,6 +73,6 @@ The local deliverables are present and readable. **The GitHub submission is not 
 - [x] Postman collections parse; live GET/query checks pass.
 - [x] 6 Lab 02 and 11 Lab 03 screenshots exist and open.
 - [x] Newman HTML and terminal reports are available for both labs.
-- [ ] **Publish the current local deliverables to GitHub before submitting the online links.** The screenshot/report files are untracked. At the start of this review, local modifications already existed in the Lab 02 collection and README files and in Lab 03's README, `.gitignore`, `package.json`, `server.js`, and `vercel.json`. This review updated the two main README files and added this report. No commit or push was made, as requested.
+- [x] Publish the verified Lab 02 and Lab 03 deliverables to GitHub `main`; the remote commit was confirmed and the working tree is clean.
 
 This review did not modify API source code, databases, Lab 01, or Git history. Vercel's SQLite writes are ephemeral as documented by the projects; no write requests were sent during this review.
